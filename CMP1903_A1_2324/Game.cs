@@ -8,11 +8,168 @@ using System.Threading.Tasks;
 
 namespace CMP1903_A1_2324
 {
-    internal class Game : SevensOut
-    {
-        
-
+    internal class Game
+    {   
         private static readonly Random random = new Random();
+
+        // Nested SevensOut() class within Game class
+        public class SevensOut
+        {
+            // Making the two dice objects
+            private Die die1;
+            private Die die2;
+
+            public SevensOut()
+            {
+                // Initialising the dice
+                die1 = new Die();
+                die2 = new Die();
+            }
+
+            // Method for Player One
+            public int PlayerOne()
+            {
+                // Setting the score to 0
+                int p1Score = 0;
+            p1Repeat:
+
+                // Player One's turn with input for roll simulation
+                Console.WriteLine("Player 1 Roll: ");
+                Console.ReadKey();
+                Console.Clear();
+                // Rolling each dice
+                int p1Roll1 = die1.Roll();
+                int p1Roll2 = die2.Roll();
+                // Combining to get total of both rolls
+                int p1RollTotal = p1Roll1 + p1Roll2;
+                // Double score if doubles
+                if (p1Roll1 == p1Roll2)
+                {
+                    p1RollTotal += p1RollTotal;
+                }
+                // Incrementing the score
+                p1Score += p1RollTotal;
+                // Presenting each die, their total, and the total score to the user
+                Console.WriteLine("~~~~~Sevens Out~~~~~~~" +
+                                  "\nDie 1: " + p1Roll1 +
+                                  "\nDie 2: " + p1Roll2 +
+                                  "\n\nRoll total: " + p1RollTotal +
+                                  "\nPlayer 1 score: " + p1Score +
+                                  "\n");
+                // Detecting the Game end
+                if (p1RollTotal == 7)
+                {
+                    // Game end message and returning the players score
+                    Console.Clear();
+                    Console.WriteLine("~~~~~Sevens Out~~~~~~~" +
+                                      "\n\nPlayer One rolled a 7" +
+                                      "\nPlayer Two's turn\n");
+                    return p1Score;
+                }
+                else
+                {
+                    // Repeating the rolls as the game has not ended
+                    goto p1Repeat;
+                }
+            }
+
+            // Method for player Two
+            public int PlayerTwo()
+            {
+                // Setting the score to 0
+                int p2Score = 0;
+            p2Repeat:
+
+                // Player Two's turn with input for roll simulation
+                Console.WriteLine("Player 2 Roll: ");
+                Console.ReadKey();
+                Console.Clear();
+                // Rolling each dice
+                int p2Roll1 = die1.Roll();
+                int p2Roll2 = die2.Roll();
+                // Combining to get total of both rolls
+                int p2RollTotal = p2Roll1 + p2Roll2;
+                // Double score if doubles
+                if (p2Roll1 == p2Roll2)
+                {
+                    p2RollTotal += p2RollTotal;
+                }
+                // Incrementing the score
+                p2Score += p2RollTotal;
+                // Presenting each die, their total, and the total score to the user
+                Console.WriteLine("~~~~~Sevens Out~~~~~~~" +
+                                  "\nDie 1: " + p2Roll1 +
+                                  "\nDie 2: " + p2Roll2 +
+                                  "\n\nRoll total: " + p2RollTotal +
+                                  "\nPlayer 2 score: " + p2Score +
+                                  "\n");
+                // Detecting the Game end
+                if (p2RollTotal == 7)
+                {
+                    // Game end message and returning the players score
+                    Console.Clear();
+                    Console.WriteLine("~~~~~Sevens Out~~~~~~~" +
+                                      "\n\nPlayer Two rolled a 7" +
+                                      "\nEnd of Game!\n");
+                    return p2Score;
+                }
+                else
+                {
+                    // Repeating the rolls as the game has not ended
+                    goto p2Repeat;
+                }
+            }
+
+            // Method for CPU
+            public int PlayerTwoCpu()
+            {
+                // Setting the score to 0
+                int p2cScore = 0;
+            p2cRepeat:
+
+                // CPU's turn
+                Console.WriteLine("Cpu Roll: ");
+                // Faking waiting to roll
+                Thread.Sleep(750);
+                Console.WriteLine("Rolling...");
+                Thread.Sleep(1000);
+                Console.Clear();
+                // Rolling each dice
+                int p2cRoll1 = die1.Roll();
+                int p2cRoll2 = die2.Roll();
+                // Combining to get total of both rolls
+                int p2cRollTotal = p2cRoll1 + p2cRoll2;
+                // Double score if doubles
+                if (p2cRoll1 == p2cRoll2)
+                {
+                    p2cRollTotal += p2cRollTotal;
+                }
+                // Incrementing the score
+                p2cScore += p2cRollTotal;
+                // Presenting each die, their total, and the total score to the user
+                Console.WriteLine("~~~~~Sevens Out~~~~~~~" +
+                                  "\nDie 1: " + p2cRoll1 +
+                                  "\nDie 2: " + p2cRoll2 +
+                                  "\n\nRoll total: " + p2cRollTotal +
+                                  "\nCPU score: " + p2cScore +
+                                  "\n");
+                // Detecting the Game end
+                if (p2cRollTotal == 7)
+                {
+                    // Game end message and returning the players score
+                    Console.Clear();
+                    Console.WriteLine("~~~~~Sevens Out~~~~~~~" +
+                                      "\n\nCPU rolled a 7" +
+                                      "\nEnd of game!\n");
+                    return p2cScore;
+                }
+                else
+                {
+                    // Repeating the rolls as the game has not ended
+                    goto p2cRepeat;
+                }
+            }
+        }
 
         // Nested ThreeOrMore() class within Game class
         public class ThreeOrMore
@@ -92,6 +249,7 @@ namespace CMP1903_A1_2324
                         if (cpu == "n" || playerTurn == "y")
                         {
                             // Gathering user input and converting to an integer
+                            Console.WriteLine("~~~Player Turn~~~~");
                             reRollCheck = int.Parse(Console.ReadKey().KeyChar.ToString());
                         }
                         else
@@ -99,6 +257,7 @@ namespace CMP1903_A1_2324
                             // Choosing a random option for the CPU
                             reRollCheck = random.Next(1, 3);
                             // Simulating CPU roll time
+                            Console.WriteLine("~~~~~CPU Turn~~~~~");
                             Thread.Sleep(750);
                             Console.WriteLine("Rolling...");
                             Thread.Sleep(1000);
@@ -193,6 +352,7 @@ namespace CMP1903_A1_2324
             public int PlayerOne(string cpu, int p1Score, int p2Score)
             {
                 // Player One's turn with input for roll simulation
+                Console.WriteLine("~~~Player Turn~~~~");
                 Console.WriteLine("Player One Roll: ");
                 Console.ReadKey();
 
@@ -230,6 +390,7 @@ namespace CMP1903_A1_2324
             public int PlayerTwo(string cpu, int p2Score, int p1Score)
             {
                 // Player Two's turn with input for roll simulation
+                Console.WriteLine("~~~Player Turn~~~~");
                 Console.WriteLine("Player Two Roll: ");
                 Console.ReadKey();
 
@@ -258,6 +419,7 @@ namespace CMP1903_A1_2324
             public int PlayerTwoCpu(string cpu, int p2cScore, int p1Score)
             {
                 // CPU's turn with input for roll simulation
+                Console.WriteLine("~~~~~CPU Turn~~~~~");
                 Console.WriteLine("Computer Roll: ");
                 Thread.Sleep(750);
                 Console.WriteLine("Rolling...");
@@ -446,6 +608,7 @@ namespace CMP1903_A1_2324
                     Console.Clear();
                     GameStart();
                 }
+                // Go back to menu one
                 else if (playerChoice == "4")
                 {
                     Console.Clear();
@@ -503,162 +666,4 @@ namespace CMP1903_A1_2324
 
     }
 
-    // Nested SevensOut() class within Game class
-    public class SevensOut
-    {
-        // Making the two dice objects
-        private Die die1;
-        private Die die2;
-
-        public SevensOut()
-        {
-            // Initialising the dice
-            die1 = new Die();
-            die2 = new Die();
-        }
-
-        // Method for Player One
-        public int PlayerOne()
-        {
-            // Setting the score to 0
-            int p1Score = 0;
-        p1Repeat:
-
-            // Player One's turn with input for roll simulation
-            Console.WriteLine("Player 1 Roll: ");
-            Console.ReadKey();
-            Console.Clear();
-            // Rolling each dice
-            int p1Roll1 = die1.Roll();
-            int p1Roll2 = die2.Roll();
-            // Combining to get total of both rolls
-            int p1RollTotal = p1Roll1 + p1Roll2;
-            // Double score if doubles
-            if (p1Roll1 == p1Roll2)
-            {
-                p1RollTotal += p1RollTotal;
-            }
-            // Incrementing the score
-            p1Score += p1RollTotal;
-            // Presenting each die, their total, and the total score to the user
-            Console.WriteLine("~~~~~Sevens Out~~~~~~~" +
-                              "\nDie 1: " + p1Roll1 +
-                              "\nDie 2: " + p1Roll2 +
-                              "\n\nRoll total: " + p1RollTotal +
-                              "\nPlayer 1 score: " + p1Score +
-                              "\n");
-            // Detecting the Game end
-            if (p1RollTotal == 7)
-            {
-                // Game end message and returning the players score
-                Console.Clear();
-                Console.WriteLine("~~~~~Sevens Out~~~~~~~" +
-                                  "\n\nPlayer One rolled a 7" +
-                                  "\nPlayer Two's turn\n");
-                return p1Score;
-            }
-            else
-            {
-                // Repeating the rolls as the game has not ended
-                goto p1Repeat;
-            }
-        }
-
-        // Method for player Two
-        public int PlayerTwo()
-        {
-            // Setting the score to 0
-            int p2Score = 0;
-        p2Repeat:
-
-            // Player Two's turn with input for roll simulation
-            Console.WriteLine("Player 2 Roll: ");
-            Console.ReadKey();
-            Console.Clear();
-            // Rolling each dice
-            int p2Roll1 = die1.Roll();
-            int p2Roll2 = die2.Roll();
-            // Combining to get total of both rolls
-            int p2RollTotal = p2Roll1 + p2Roll2;
-            // Double score if doubles
-            if (p2Roll1 == p2Roll2)
-            {
-                p2RollTotal += p2RollTotal;
-            }
-            // Incrementing the score
-            p2Score += p2RollTotal;
-            // Presenting each die, their total, and the total score to the user
-            Console.WriteLine("~~~~~Sevens Out~~~~~~~" +
-                              "\nDie 1: " + p2Roll1 +
-                              "\nDie 2: " + p2Roll2 +
-                              "\n\nRoll total: " + p2RollTotal +
-                              "\nPlayer 2 score: " + p2Score +
-                              "\n");
-            // Detecting the Game end
-            if (p2RollTotal == 7)
-            {
-                // Game end message and returning the players score
-                Console.Clear();
-                Console.WriteLine("~~~~~Sevens Out~~~~~~~" +
-                                  "\n\nPlayer Two rolled a 7" +
-                                  "\nEnd of Game!\n");
-                return p2Score;
-            }
-            else
-            {
-                // Repeating the rolls as the game has not ended
-                goto p2Repeat;
-            }
-        }
-
-        // Method for CPU
-        public int PlayerTwoCpu()
-        {
-            // Setting the score to 0
-            int p2cScore = 0;
-        p2cRepeat:
-
-            // CPU's turn
-            Console.WriteLine("Cpu Roll: ");
-            // Faking waiting to roll
-            Thread.Sleep(750);
-            Console.WriteLine("Rolling...");
-            Thread.Sleep(1000);
-            Console.Clear();
-            // Rolling each dice
-            int p2cRoll1 = die1.Roll();
-            int p2cRoll2 = die2.Roll();
-            // Combining to get total of both rolls
-            int p2cRollTotal = p2cRoll1 + p2cRoll2;
-            // Double score if doubles
-            if (p2cRoll1 == p2cRoll2)
-            {
-                p2cRollTotal += p2cRollTotal;
-            }
-            // Incrementing the score
-            p2cScore += p2cRollTotal;
-            // Presenting each die, their total, and the total score to the user
-            Console.WriteLine("~~~~~Sevens Out~~~~~~~" +
-                              "\nDie 1: " + p2cRoll1 +
-                              "\nDie 2: " + p2cRoll2 +
-                              "\n\nRoll total: " + p2cRollTotal +
-                              "\nCPU score: " + p2cScore +
-                              "\n");
-            // Detecting the Game end
-            if (p2cRollTotal == 7)
-            {
-                // Game end message and returning the players score
-                Console.Clear();
-                Console.WriteLine("~~~~~Sevens Out~~~~~~~" +
-                                  "\n\nCPU rolled a 7" +
-                                  "\nEnd of game!\n");
-                return p2cScore;
-            }
-            else
-            {
-                // Repeating the rolls as the game has not ended
-                goto p2cRepeat;
-            }
-        }
-    }
 }

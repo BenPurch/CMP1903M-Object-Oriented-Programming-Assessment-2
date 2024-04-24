@@ -1,4 +1,5 @@
-﻿using System;
+﻿//#define TEST
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,11 +33,17 @@ namespace CMP1903_A1_2324
         static void Main(string[] args)
         {
 
+            
+
+#if TEST
+            //Create a Testing object and call its methods
+            Testing testing = new Testing();
+            Testing.GameTester();
+#else
             //Create a Game object and call its methods.
             Game game = new Game();
-            Program program = new Program();
             game.GameStart();
-
+#endif
         }
         
     }
