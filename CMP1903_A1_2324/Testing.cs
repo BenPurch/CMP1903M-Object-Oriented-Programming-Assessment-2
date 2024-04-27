@@ -119,8 +119,6 @@ namespace CMP1903_A1_2324
             // Exception handling
             try
             {
-                // Setting the base score for the players of Three Or More
-                int tomBaseScore = 0;
 
                 // Playing Sevens Out with a second person
                 if (gameChoice == "1" && playerChoice == "1")

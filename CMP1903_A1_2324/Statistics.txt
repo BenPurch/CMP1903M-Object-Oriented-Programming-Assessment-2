@@ -1,0 +1,39 @@
+Statistics.txt
+
+
+
+High Scores (format: "score", "name"):
+
+Sevens Out (highest total score)
+15
+Ben
+
+Three or More (fewest rolls)
+12
+Ken
+
+
+Number of Plays (format: "score", "name"):
+
+Sevens Out
+0
+Ren
+
+Three or More
+0
+Sven
+
+
+Past scores (format: "score", "name", "game", "space")
+
+Sevens Out
+Aaron
+12
+
+Three or More
+Steve
+15
+
+Sevens Out
+Holly
+7

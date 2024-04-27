@@ -12,6 +12,59 @@ namespace CMP1903_A1_2324
     {   
         private static readonly Random random = new Random();
 
+        public string PlayerName(bool playerIsUser)
+        {
+            try
+            {
+                // Checking if the player is the winner
+                if (playerIsUser == true)
+                {
+                    Console.WriteLine("Please type your name and press ENTER to submit:");
+                    string playerName = Console.ReadLine();
+
+                    Console.WriteLine("Your name is: " + playerName + 
+                                    "\nCorrect            [1]\n" +
+                                      "Go Back            [2]");
+                    string nameChoice = Console.ReadKey().KeyChar.ToString();
+
+                    Console.Clear();
+                    if (nameChoice == "1" && playerName.Length >= 3)
+                    {
+                        return playerName;
+                    }
+                    else if (nameChoice == "2")
+                    {
+                        Console.WriteLine("Name Re-Entry");
+                        return PlayerName(playerIsUser);
+                    }
+                    else if (nameChoice == "1" && playerName.Length < 3)
+                    {
+                        Console.WriteLine("Name must be three characters or more!\nName Re-Entry");
+                        return PlayerName(playerIsUser);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please enter Either 1 or 2");
+                        return PlayerName(playerIsUser);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Cpu");
+                    Console.ReadKey();
+                    return "cpu";
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("That is not a valid name!\nTry again..");
+                Console.ReadKey();
+                Console.Clear();
+                PlayerName(playerIsUser);
+            }
+            return "error";
+        }
+
         // Nested SevensOut() class within Game class
         public class SevensOut
         {
@@ -467,7 +520,6 @@ namespace CMP1903_A1_2324
             {
                 try
                 {
-                    Console.WriteLine("Statistics");
                     Stats();
                 }
                 catch (Exception e)
@@ -521,25 +573,29 @@ namespace CMP1903_A1_2324
                     int p1Score = sevensOut.PlayerOne();
                     int p2Score = sevensOut.PlayerTwo();
 
+                    // Gathering Player names
+                    string playerOneName = PlayerName(true);
+                    string playerTwoName = PlayerName(true);
+
                     // Final messages for each end-of-game event
                     if (p1Score > p2Score)
                     {
-                        Console.WriteLine("Player One wins with " + p1Score + " points!" +
-                                          "\nPlayer Two score: " + p2Score + "\n");
+                        Console.WriteLine(playerOneName + " wins with " + p1Score + " points!" +
+                                          "\n" + playerTwoName + " scored: " + p2Score + "\n");
                         Console.ReadKey();
                         Console.Clear();
                     }
                     else if (p1Score < p2Score)
                     {
-                        Console.WriteLine("Player Two wins with " + p2Score + " points!" +
-                                          "\nPlayer One score: " + p1Score + "\n");
+                        Console.WriteLine(playerTwoName + " wins with " + p2Score + " points!" +
+                                          "\n" + playerOneName + " scored: " + p1Score + "\n");
                         Console.ReadKey();
                         Console.Clear();
                     }
                     else
                     {
-                        Console.WriteLine("Both Players Tied!\nPlayer One Score: " + p1Score +
-                                          "\nPlayer Two Score: " + p2Score + "\n");
+                        Console.WriteLine("Both Players Tied!\n" + playerOneName + " Scored: " + p1Score +
+                                          "\n" + playerTwoName + " Scored: " + p2Score + "\n");
                         Console.ReadKey();
                         Console.Clear();
                     }
@@ -624,18 +680,164 @@ namespace CMP1903_A1_2324
             catch (Exception e)
             {
                 Console.WriteLine($"{e.Message}");
-                Console.WriteLine("Please Input either 1 or 2 in either option");
+                Console.WriteLine("Please Input 1-4 in either option");
                 Console.ReadKey();
                 Console.Clear();
                 GameStart();
             } 
         }
 
+        public void History()
+        {
+            string[] historyList = Statistics.History();
+
+            Console.Clear();
+            Console.WriteLine("~~~~~~~History~~~~~~~" +
+                              "\n" +
+                              "\nSevens Out         [1]" +
+                              "\nThree or More      [2]" +
+                              "\n" +
+                              "\nBack               [4]");
+
+            int historyChoice = int.Parse(Console.ReadKey().KeyChar.ToString());
+
+            try
+            {
+                switch (historyChoice)
+                {
+                    case 1:
+                        Console.Clear();
+                        Console.WriteLine("~~~~~Sevens Out~~~~~~\n");
+                        // Loop through every fourth line starting from index 1
+                        for (int i = 0; i < historyList.Length; i += 4)
+                        {
+                             // Check if the index is within the bounds of the list and there's a corresponding line starting from index 2
+                             if (historyList[i] == "Sevens Out")
+                             {
+                                // Print the lines adjacent to each other
+                                Console.WriteLine(historyList[i + 1] + " " + historyList[i + 2]);
+                             }
+                        }
+
+                        Console.WriteLine("\nBack         [Any Key]");
+                        Console.ReadKey();
+                        Console.Clear();
+                        History();
+                        break; 
+                    case 2:
+                        Console.Clear();
+                        Console.WriteLine("~~~~Three or More~~~~\n");
+                        // Loop through every fourth line starting from index 1
+                        for (int i = 0; i < historyList.Length; i += 4)
+                        {
+                            // Check if the index is within the bounds of the list and there's a corresponding line starting from index 2
+                            if (historyList[i] == "Three or More")
+                            {
+                                // Print the lines adjacent to each other
+                                Console.WriteLine(historyList[i + 1] + " " + historyList[i + 2]);
+                            }
+                        }
+
+                        Console.WriteLine("\nBack         [Any Key]");
+                        Console.ReadKey();
+                        Console.Clear();
+                        History();
+                        break;
+                    case 4:
+                        Console.Clear();
+                        Stats();
+                        break;
+                }
+            }
+            catch (Exception p)
+            {
+                History();
+            }
+
+            
+        }
+
         // Method for Statistic selection in the menu
         public void Stats()
         {
-            Console.WriteLine("Statistics Placeholder");
-            Console.ReadKey();
+            Console.WriteLine("~~~~~~Stats Menu~~~~~~" +
+                            "\n" +
+                            "\nHigh Scores        [1]" +
+                            "\nPlay Count         [2]" +
+                            "\nScore History      [3]" +
+                            "\nBack               [4]");
+            int statisticsChoice = int.Parse(Console.ReadKey().KeyChar.ToString());
+            Console.WriteLine();
+            try
+            {
+                switch (statisticsChoice)
+                {
+                    case 1:
+
+                        int sevensOutTopScore = int.Parse(Statistics.LineSelector("sevensOutTopScore"));
+                        string sevensOutTopPlayer = Statistics.LineSelector("sevensOutTopPlayer");
+
+                        int threeOrMoreTopScore = int.Parse(Statistics.LineSelector("threeOrMoreTopScore"));
+                        string threeOrMoreTopPlayer = Statistics.LineSelector("threeOrMoreTopPlayer");
+
+                        Console.Clear();
+                        Console.WriteLine("~~~~~High Scores~~~~~" +
+                                       "\n" +
+                                       "\n     Sevens Out:" + 
+                                       "\n" +
+                                       "\nScore:  " + sevensOutTopScore + 
+                                       "\nPlayer: " + sevensOutTopPlayer +
+                                       "\n" +
+                                       "\n" +
+                                       "\n    Three or More:" +
+                                       "\n" +
+                                       "\nScore:  " + threeOrMoreTopScore +
+                                       "\nPlayer: " + threeOrMoreTopPlayer + 
+                                       "\n" +
+                                       "\nBack         [Any Key]");
+                        
+                        // Exits when key pressed
+                        Console.ReadKey();
+                        Console.Clear();
+                        Stats();
+                        break;
+                    case 2:
+
+                        int sevensOutPlayCount = int.Parse(Statistics.LineSelector("sevensOutPlayCount"));
+                        int threeOrMorePlayCount = int.Parse(Statistics.LineSelector("threeOrMorePlayCount"));
+
+                        Console.Clear();
+                        Console.WriteLine("~~~~~Play Count~~~~~~" +
+                                       "\n" +
+                                       "\n  Sevens Out:     " + sevensOutPlayCount +
+                                       "\n  Three or More:  " + threeOrMorePlayCount +
+                                       "\n" +
+                                       "\nBack         [Any Key]");
+
+                        // Exits when key pressed
+                        Console.ReadKey();
+                        Console.Clear();
+                        Stats();
+                        break;
+                    case 3:
+
+                        History();
+                        
+                        break;
+                    case 4:
+                        Console.Clear();
+                        GameStart();
+                        break;
+                }
+            }
+            catch (Exception e) 
+            {
+                Console.WriteLine($"{e.Message}");
+                Console.WriteLine("Please Input either 1-4");
+                Console.ReadKey();
+                Console.Clear();
+                GameStart();
+            }
         }
 
         // Method for game start

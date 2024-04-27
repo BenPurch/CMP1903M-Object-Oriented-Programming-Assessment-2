@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,9 +33,6 @@ namespace CMP1903_A1_2324
 
         static void Main(string[] args)
         {
-
-            
-
 #if TEST
             //Create a Testing object and call its methods
             Testing testing = new Testing();
