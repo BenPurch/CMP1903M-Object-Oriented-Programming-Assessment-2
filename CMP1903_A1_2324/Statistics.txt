@@ -4,27 +4,27 @@ Statistics.txt
 
 High Scores (format: "score", "name"):
 
-Sevens Out (highest total score)
-15
-Ben
+Sevens Out
+119
+Jen
 
 Three or More (fewest rolls)
-12
-Ken
+5
+CPU
 
 
 Number of Plays (format: "score", "name"):
 
 Sevens Out
-0
-Ren
+4
+
 
 Three or More
-0
-Sven
+7
 
 
-Past scores (format: "score", "name", "game", "space")
+
+Past scores (format: "space", "score", "name", "game")
 
 Sevens Out
 Aaron
@@ -37,3 +37,187 @@ Steve
 Sevens Out
 Holly
 7
+
+Sevens Out
+Ben
+15
+
+Three or More
+Ken
+12
+
+Sevens Out
+Ben
+24
+
+Sevens Out
+Ken
+15
+
+Sevens Out
+Ren
+34
+
+Sevens Out
+Jen
+119
+
+Sevens Out
+Ben
+7
+
+Sevens Out
+Pen(fold)
+69
+
+Sevens Out
+Ken
+37
+
+Sevens Out
+Neb
+45
+
+Sevens Out
+Ben
+25
+
+Sevens Out
+Ken
+85
+
+Sevens Out
+Ren
+18
+
+Sevens Out
+Jen
+7
+
+Sevens Out
+Ben
+24
+
+Sevens Out
+Neb
+32
+
+Sevens Out
+Pen(fold)
+38
+
+Sevens Out
+Ken
+89
+
+Three or More
+Ben
+21
+
+Three or More
+Ken
+18
+
+Sevens Out
+Ben
+82
+
+Sevens Out
+CPU
+11
+
+Three or More
+Ben
+21
+
+Three or More
+CPU
+18
+
+Sevens Out
+Ben
+29
+
+Sevens Out
+Neb
+97
+
+Three or More
+Ben
+21
+
+Three or More
+Neb
+12
+
+Three or More
+Ben
+8
+
+Three or More
+CPU
+7
+
+Sevens Out
+Ben
+47
+
+Sevens Out
+Ren
+7
+
+Sevens Out
+Ren
+53
+
+Sevens Out
+Ken
+12
+
+Three or More
+Ben
+5
+
+Three or More
+Neb
+4
+
+Sevens Out
+Ben
+7
+
+Sevens Out
+CPU
+59
+
+Three or More
+Ben
+5
+
+Three or More
+CPU
+5
+
+Three or More
+Ren
+7
+
+Three or More
+Ken
+7
+
+Three or More
+Ben
+6
+
+Three or More
+Jen
+6
+
+Three or More
+Ken
+5
+
+Three or More
+CPU
+5

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,10 +11,21 @@ namespace CMP1903_A1_2324
     internal class Testing
     {
         // Method for testing the Sevens Out game
-        public static void SevensOutTest(string player)
+        private static void SevensOutTest(string player)
         {
+            // Get the directory
+            string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            // Get the directory where the files reside (CMP1903_A1_2324)
+            string projectDirectory = Directory.GetParent(currentDirectory).Parent.Parent.FullName;
+            // Combine the directory path with the file name
+            string folderPath = Path.Combine(projectDirectory, "TestingLogs\\");
+
             // Create a SevensOut object
             Game.SevensOut sevensOut = new Game.SevensOut();
+
+            // Creating a list for the debug file with the current date and time
+            string currentDate = DateTime.Now.ToString("MM,dd,yyyy HH-mm-ss");
+            List<string> sevensOutDebug = new List<string> {"Date:        Time:", currentDate };
 
             if (player == "1")
             {
@@ -26,6 +38,8 @@ namespace CMP1903_A1_2324
                 Console.WriteLine("~~~~~~Player One~~~~~~\n" +
                                   "~~~~Test Concluded~~~~\n\n" +
                                   "Press any key to continue..");
+                // Adding message to the debug list
+                sevensOutDebug.Add("Test Successful\nPlayer One rolled a total of 7.");
             }
             else if (player == "2")
             {
@@ -38,6 +52,8 @@ namespace CMP1903_A1_2324
                 Console.WriteLine("~~~~~~Player Two~~~~~~\n" +
                                   "~~~~Test Concluded~~~~\n\n" +
                                   "Press any key to continue..");
+                // Adding message to the debug list
+                sevensOutDebug.Add("Test Successful\nPlayer Two rolled a total of 7.");
             }
             else
             {
@@ -50,20 +66,88 @@ namespace CMP1903_A1_2324
                 Console.WriteLine("~~~~~~~~~CPU~~~~~~~~~~\n" +
                                   "~~~~Test Concluded~~~~\n\n" +
                                   "Press any key to continue..");
+                // Adding message to the debug list
+                sevensOutDebug.Add("Test Successful\nCPU rolled a total of 7.");
             }
-                
+
+            // Creating the file name
+            string fileName = "Sevens_Out log  " + currentDate + ".txt";
+            // Getting the full file path
+            string filePath = Path.Combine(folderPath, fileName);
+            Console.Clear();
+            
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                // Parse the list and write each element as a line in the file
+                foreach (string line in sevensOutDebug)
+                {
+                    writer.WriteLine(line);
+                }
+            }
+
+            try
+            {
+                // Verify that the file was created and contains the correct data
+                string fileData = File.ReadAllText(filePath);
+                Console.WriteLine("File contents:\n\n" + fileData);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         // Method for testing the Three or More Game
-        public static void ThreeOrMoreTest(string cpu)
+        private static void ThreeOrMoreTest(string cpu)
         {
+            // Get the directory
+            string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            // Get the directory where the files reside (CMP1903_A1_2324)
+            string projectDirectory = Directory.GetParent(currentDirectory).Parent.Parent.FullName;
+            // Combine the directory path with the file name
+            string folderPath = Path.Combine(projectDirectory, "TestingLogs\\");
+
             // Create a ThreeOrMore object
             Game.ThreeOrMore threeOrMore = new Game.ThreeOrMore();
 
+            // Creating a list for the debug file with the current date and time
+            string currentDate = DateTime.Now.ToString("MM,dd,yyyy HH-mm-ss");
+            List<string> threeOrMoreDebug = new List<string> {"Date:        Time:", currentDate };
+
             // Call the PlayerOne method to simulate a game
-            int playerScore = threeOrMore.PlayerOne(cpu, 0, 0);
+            int playerScore = threeOrMore.PlayerOne(cpu, 0, 0, 0, 0);
             // Use Debug.Assert to check if p1Score is greater than or equal to 20
-            Debug.Assert(playerScore >= 20, "Test Successful\nGame has ended with a score of greater than 20");
+            Debug.Assert(playerScore >= 20, "Test Successful\nGame has ended with a score of 20 or more");
+
+            // Adding message to the debug list
+            threeOrMoreDebug.Add("Test Successful\nGame has ended with a score of 20 or more");
+
+            // Creating the file name
+            string fileName = "Three_or_More log  " + currentDate + ".txt";
+            // Getting the full file path
+            string filePath = Path.Combine(folderPath, fileName);
+            Console.Clear();
+
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                // Parse the list and write each element as a line in the file
+                foreach (string line in threeOrMoreDebug)
+                {
+                    writer.WriteLine(line);
+                }
+            }
+
+            try
+            {
+                // Verify that the file was created and contains the correct data
+                string fileData = File.ReadAllText(filePath);
+                Console.WriteLine("File contents:\n\n" + fileData);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
             // Message for conclusion of game test
             Console.WriteLine("~~~~~Three or More~~~~\n" +
                               "~~~~Test Concluded~~~~\n\n" +
@@ -124,6 +208,7 @@ namespace CMP1903_A1_2324
                 if (gameChoice == "1" && playerChoice == "1")
                 {
                     SevensOutTest("1");
+                    Console.ReadKey();
                     Console.ReadKey();
                     SevensOutTest("2");
                     Console.ReadKey();
