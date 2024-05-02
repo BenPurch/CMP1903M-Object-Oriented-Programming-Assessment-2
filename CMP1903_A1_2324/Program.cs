@@ -13,8 +13,10 @@ namespace CMP1903_A1_2324
 
         public void CloseWindow()
         {
+            // Initialising Game
             Game game = new Game();
 
+            // Confirming if the user really wants to close the window
             Console.WriteLine("Press the X key to confirm closing the window" +
                               "\nOr any other key to stay");
             string stayOrClose = Console.ReadKey().KeyChar.ToString();

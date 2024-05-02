@@ -19,14 +19,17 @@ namespace CMP1903_A1_2324
                 // Checking if the player is the winner
                 if (playerIsUser == true)
                 {
+                    // Prompting the user for their name
                     Console.WriteLine("Please type your name and press ENTER to submit:");
                     string playerName = Console.ReadLine();
 
+                    // Name choice confirmation
                     Console.WriteLine("Your name is: " + playerName + 
                                     "\nCorrect            [1]\n" +
                                       "Go Back            [2]");
                     string nameChoice = Console.ReadKey().KeyChar.ToString();
 
+                    // Letting the user re-chose their name if chosen or less than 3 chars
                     Console.Clear();
                     if (nameChoice == "1" && playerName.Length >= 3)
                     {
@@ -48,6 +51,7 @@ namespace CMP1903_A1_2324
                         return PlayerName(playerIsUser);
                     }
                 }
+                // If user is the cpu it automatically returns CPU as the name
                 else
                 {
                     return "CPU";
@@ -63,11 +67,13 @@ namespace CMP1903_A1_2324
             return "error";
         }
 
+        // Places scores and names together in the correct format for the history section of Statistics.txt
         public string[] ScoresForHistory(string playerOneName, string playerTwoName, string gameMode, int p1Score, int p2Score)
         {
+            // making sure all array values are strings
             string playerOneScore = p1Score.ToString();
             string playerTwoScore = p2Score.ToString();
-
+            // Adding all elements to the array
             string[] scoresForHistory = {"", gameMode, playerOneName, playerOneScore, "", gameMode, playerTwoName, playerTwoScore};
             return scoresForHistory;
         }
@@ -758,10 +764,11 @@ namespace CMP1903_A1_2324
             } 
         }
 
+        // History menu inside the stats menu
         public void History()
         {
             string[] historyList = Statistics.History();
-
+            // Lets the user pick what game's history they wish to view
             Console.Clear();
             Console.WriteLine("~~~~~~~History~~~~~~~" +
                               "\n" +
@@ -776,7 +783,7 @@ namespace CMP1903_A1_2324
             {
                 switch (historyChoice)
                 {
-                    case 1:
+                    case 1: // Sevens Out history viewer
                         Console.Clear();
                         Console.WriteLine("~~~~~Sevens Out~~~~~~\n");
                         // Loop through every fourth line starting from index 1
@@ -795,7 +802,7 @@ namespace CMP1903_A1_2324
                         Console.Clear();
                         History();
                         break; 
-                    case 2:
+                    case 2: // Three or More history viewer
                         Console.Clear();
                         Console.WriteLine("~~~~Three or More~~~~\n");
                         // Loop through every fourth line starting from index 1
@@ -814,7 +821,7 @@ namespace CMP1903_A1_2324
                         Console.Clear();
                         History();
                         break;
-                    case 4:
+                    case 4: // Go Back
                         Console.Clear();
                         Stats();
                         break;
@@ -843,7 +850,7 @@ namespace CMP1903_A1_2324
             {
                 switch (statisticsChoice)
                 {
-                    case 1:
+                    case 1: // Presents high scores from Statistics.txt
 
                         int sevensOutTopScore = int.Parse(Statistics.LineSelector("sevensOutTopScore"));
                         string sevensOutTopPlayer = Statistics.LineSelector("sevensOutTopPlayer");
@@ -872,7 +879,7 @@ namespace CMP1903_A1_2324
                         Console.Clear();
                         Stats();
                         break;
-                    case 2:
+                    case 2: // Presents play count from Statistics.txt
 
                         int sevensOutPlayCount = int.Parse(Statistics.LineSelector("sevensOutPlayCount"));
                         int threeOrMorePlayCount = int.Parse(Statistics.LineSelector("threeOrMorePlayCount"));
@@ -890,12 +897,13 @@ namespace CMP1903_A1_2324
                         Console.Clear();
                         Stats();
                         break;
-                    case 3:
+                    case 3: // Presents History
 
+                        // Redirects to the History menu
                         History();
                         
                         break;
-                    case 4:
+                    case 4: // Goes Back
                         Console.Clear();
                         GameStart();
                         break;
@@ -918,8 +926,10 @@ namespace CMP1903_A1_2324
             MenuOne();
         }
 
+        // Closes the window
         static void CloseWindow()
         {
+            // Prompts user to confirm choice
             Console.WriteLine("Press the X key to confirm closing the window" +
                               "\nOr any other key to stay");
             string stayOrClose = Console.ReadKey().KeyChar.ToString();

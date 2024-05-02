@@ -68,6 +68,7 @@ namespace CMP1903_A1_2324
             return stat;
         }
 
+        // Gathers the games history
 		public static string[] History()
 		{
             string[] StatisticsTxt = StatisticsFile();
@@ -78,54 +79,62 @@ namespace CMP1903_A1_2324
             return historyList;
         }
 
+        // Appends the new scores to Statistics.txt
 		public static void AppendStatistics(string[] gameScores)
 		{
             string[] StatisticsTxt = StatisticsFile();
 
+            // Adds the two players scores to the end of the StatisticsTxt array
             StatisticsTxt = StatisticsTxt.Concat(gameScores).ToArray();
 
             if (gameScores[1] == "Sevens Out")
             {
+                // Gathering scores for comparrisons
                 int playerOneScore = int.Parse(gameScores[3]);
                 int playerTwoScore = int.Parse(gameScores[7]);
 
                 int highScore = int.Parse(StatisticsTxt[7]);
 
+                // Checking if player one has the new high score
                 if (playerOneScore > highScore)
                 {
                     StatisticsTxt[7] = gameScores[3];
                     StatisticsTxt[8] = gameScores[2];
                 }
-                
+                // Checking if player two has the new high score
                 if (playerTwoScore > highScore)
                 {
                     StatisticsTxt[7] = gameScores[7];
                     StatisticsTxt[8] = gameScores[6];
                 }
 
+                // Adding +1 to the playcount for Sevens Out
                 int playCount = int.Parse(StatisticsTxt[18]) + 1;
                 StatisticsTxt[18] = playCount.ToString();
 
             }
             else if (gameScores[1] == "Three or More")
             {
+                // Gathering scores for comparrisons
                 int playerOneScore = int.Parse(gameScores[3]);
                 int playerTwoScore = int.Parse(gameScores[7]);
 
                 int highScore = int.Parse(StatisticsTxt[7]);
 
+                // Checking if player one has the new 'least amount of rolls'
                 if (playerOneScore < highScore)
                 {
                     StatisticsTxt[11] = gameScores[3];
                     StatisticsTxt[12] = gameScores[2];
                 }
-                
+                // Checking if player two has the new 'least amount of rolls' 
                 if (playerTwoScore < highScore)
                 {
                     StatisticsTxt[11] = gameScores[7];
                     StatisticsTxt[12] = gameScores[6];
                 }
 
+                // Adding +1 to the playcount for Three or More
                 int playCount = int.Parse(StatisticsTxt[22]) + 1;
                 StatisticsTxt[22] = playCount.ToString();
 
